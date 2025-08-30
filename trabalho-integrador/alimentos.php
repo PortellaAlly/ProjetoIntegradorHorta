@@ -14,7 +14,8 @@
     $conexao = mysqli_connect($local, $admin, $senha, $based);
     $sql = "SELECT * FROM alimentos";
 
-    mysqli_query($conexao, $sql);
+    $resultados = mysqli_query($conexao, $sql);
+    
     $alimentos = [];
     while($linha = mysqli_fetch_assoc($resultados)){
         $alimentos[] = $linha;
