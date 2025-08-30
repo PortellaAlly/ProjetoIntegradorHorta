@@ -7,7 +7,6 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
-// Níveis 1 e 2 podem acessar (não precisa verificar nível específico)
 ?>
 
 <!DOCTYPE html>

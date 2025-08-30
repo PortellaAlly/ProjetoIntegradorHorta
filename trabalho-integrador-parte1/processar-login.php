@@ -8,7 +8,6 @@
 
     $conexao = mysqli_connect($local, $admin, $senha, $based);
 
-    // MUDANÇA AQUI: agora pega o nível também
     $sql  = "SELECT usuario, senha, nivel FROM login WHERE usuario = ?";
     $stmt = mysqli_prepare($conexao, $sql);
 

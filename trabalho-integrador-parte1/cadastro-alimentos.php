@@ -30,33 +30,33 @@ if ($_SESSION['nivel'] != 1) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cadastro de Alimentosssssssssssssssssssssssssssssss</title>
+    <title>Cadastro de Alimentos</title>
 </head>
 <body>
     <h1>Cadastrar Alimento</h1>
     <p>Bem-vindo, <?php echo htmlspecialchars($_SESSION['usuario']); ?>! (Nível <?php echo $_SESSION['nivel']; ?>)</p>
     
-    <!-- Formulário de cadastro de alimentos -->
     <form method="POST" action="processar-cadastro-alimentos.php">
         <fieldset>
             <legend>Dados do Alimento</legend>
             
-            <label for="nome">Nome do Alimento:</label>
-            <input type="text" id="nome" name="nomecomum" required><br><br>
-            <label for="nome">Nome do Cientifico Alimento:</label>
-            <input type="text" id="nome" name="nomecientifico" required><br><br>
+            <label for="nomecomum">Nome do Alimento:</label>
+            <input type="text" id="nomecomum" name="nomecomum" required><br><br>
+            
+            <label for="nomecientifico">Nome Científico do Alimento:</label>
+            <input type="text" id="nomecientifico" name="nomecientifico"><br><br>
             
             <label for="categoria">Categoria:</label>
             <select id="categoria" name="categoria" required>
                 <option value="">Selecione...</option>
-                <option value="frutas">Frutas</option>
-                <option value="vegetais">Vegetais</option>
-                <option value="erva">Laticínios</option>
-                <option value="graos">Grãos</option>
+                <option value="Verdura">Verdura</option>
+                <option value="Legume">Legume</option>
+                <option value="Fruto">Fruto</option>
+                <option value="Tempero">Tempero</option>
             </select><br><br>
 
-            <label for="Secao">Seção circular:</label>
-            <select id="categoria" name="categoria" required>
+            <label for="secao">Seção Circular:</label>
+            <select id="secao" name="secao" required>
                 <option value="">Selecione...</option>
                 <option value="A">A</option>
                 <option value="B">B</option>

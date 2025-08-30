@@ -10,7 +10,6 @@
     $login_senha = $_POST["senha"];
     $nivel = 2; // Por padrão, novos usuários são nível 2
 
-    // MUDANÇA AQUI: inclui o nível no INSERT
     $sql = "INSERT INTO login (usuario, senha, nivel) VALUES (?, ?, ?)";
     $stmt = mysqli_prepare($conexao, $sql);
 
