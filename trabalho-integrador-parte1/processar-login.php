@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     $local = "localhost";
     $admin = "root";
     $senha = "";
@@ -17,15 +19,19 @@
     $resultado = mysqli_stmt_get_result($stmt);
 
     $linha = mysqli_fetch_assoc($resultado);
-    $senha_hash = $linha['senha'];
-
-    if (!password_verify($login_senha, $senha_hash)) {
+    if (!$linha) {
         echo "Usuário ou senha inválidos.";
         exit();
     }
+    $senha_hash = $linha['senha'];
+
+    if (password_verify($login_senha, $senha_hash)) {
     $_SESSION['usuario'] = $linha['usuario'];
     header("Location: index.php");
     exit();
-
+    } else {
+    echo "Usuário ou senha inválidos.";
+        exit();
+    }
 
 ?>
