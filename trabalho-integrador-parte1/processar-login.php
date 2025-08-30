@@ -8,7 +8,8 @@
 
     $conexao = mysqli_connect($local, $admin, $senha, $based);
 
-    $sql  = "SELECT usuario, senha FROM login WHERE usuario = ?";
+    // MUDANÇA AQUI: agora pega o nível também
+    $sql  = "SELECT usuario, senha, nivel FROM login WHERE usuario = ?";
     $stmt = mysqli_prepare($conexao, $sql);
 
     $login_usuario = $_POST["usuario"];
@@ -26,12 +27,12 @@
     $senha_hash = $linha['senha'];
 
     if (password_verify($login_senha, $senha_hash)) {
-    $_SESSION['usuario'] = $linha['usuario'];
-    header("Location: index.php");
-    exit();
+        $_SESSION['usuario'] = $linha['usuario'];
+        $_SESSION['nivel'] = $linha['nivel'];  // NOVA LINHA: salva o nível
+        header("Location: index.php");
+        exit();
     } else {
-    echo "Usuário ou senha inválidos.";
+        echo "Usuário ou senha inválidos.";
         exit();
     }
-
 ?>
