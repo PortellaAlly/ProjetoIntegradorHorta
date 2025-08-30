@@ -10,6 +10,8 @@
     <ul>
         <li><a href="cadastro-alimentos.php">Cadastro de Alimentos (Nível 1)</a></li>
         <li><a href="sensores.php">Informações dos Sensores (Níveis 1 e 2)</a></li>
+        <li><a href="cadastro.html">Cadastro games</a></li>
+        <li><a href="login.html">Login games</a></li>
     </ul>
 </body>
 </html>
