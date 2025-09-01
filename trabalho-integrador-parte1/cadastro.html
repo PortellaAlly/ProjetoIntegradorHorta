@@ -1,22 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastramento AAAAAAAAAAAAAAAAAAAAAAAA</title>
+    <title>Cadastramento</title>
+    <style>
+        /* Paleta horta: verdes, creme e marrom claro */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f1e1; /* creme */
+            color: #2f3e1e; /* verde escuro */
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 60px auto;
+            padding: 25px;
+            background: #ffffff;
+            border: 2px solid #7a9a57; /* verde médio */
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #3b5d2f; /* verde intenso */
+            font-size: 1.4em;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 12px 0 6px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #7a9a57;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: #a4c639; /* verde vivo */
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #7a9a57; /* verde médio */
+        }
+
+        p {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        a {
+            color: #3b5d2f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Oi tudo bem? preencha seus dados da silva para o cadastranento</h1>
-    <form method="post" action="processar-cadastro.php">
-        <label>Nome:</label>
-        <input type="text" id="usuario" name="usuario" required>
-        <br><br>
-        <label>Senha:</label>
-        <input type="password" id="senha" name="senha" required>
-        <br><br>
-        <button type="submit">Cadastrar</button>
-    </form>
-    <br>
-    <p>Já tem conta? <a href="login.html">Faça login aqui</a></p>
+    <div class="container">
+        <h1>Informe os dados para o cadastramento</h1>
+        <form method="post" action="processar-cadastro.php">
+            <label for="usuario">Nome:</label>
+            <input type="text" id="usuario" name="usuario" required>
+
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+        <p>Já tem conta? <a href="login.html">Faça login aqui</a></p>
+    </div>
 </body>
 </html>
