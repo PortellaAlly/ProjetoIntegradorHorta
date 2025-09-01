@@ -3,8 +3,16 @@
     // ENDPOINT PHP PARA CONSULTAR E RETORNAR 
     // A QUANTIDADE TOTAL DE ALIMENTOS POR TIPO.
 
-    // Configurando o cabeçalho para retornar um arquivo json
+    // ✅ HEADERS CORS - ADICIONE SEMPRE NO INÍCIO
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type");
     header("Content-type: application/json; charset=utf-8");
+
+    // Responde requisições OPTIONS (preflight)
+    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+        exit(0);
+    }
 
     $local = "localhost";
     $admin = "root";
