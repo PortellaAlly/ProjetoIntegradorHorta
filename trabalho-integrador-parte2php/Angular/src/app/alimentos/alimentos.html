@@ -1,0 +1,224 @@
+<div class="container">
+  <!-- Cabeçalho -->
+  <header class="header">
+    <h1 class="titulo-principal">🌱 Sistema de Gerenciamento da Horta do IF</h1>
+    <p class="subtitulo">
+      Gerencie e visualize os alimentos cultivados na horta
+    </p>
+  </header>
+
+  <!-- Loading -->
+  <div *ngIf="carregando" class="loading">
+    <div class="spinner"></div>
+    <p>Carregando dados da horta...</p>
+  </div>
+
+  <!-- Erro -->
+  <div *ngIf="erro" class="erro">
+    <h3>⚠️ Erro ao carregar dados</h3>
+    <p>{{ erro }}</p>
+    <button (click)="recarregar()" class="btn btn-primary">
+      Tentar Novamente
+    </button>
+  </div>
+
+  <!-- Conteúdo principal -->
+  <div *ngIf="!carregando && !erro" class="conteudo">
+    <!-- Menu de navegação -->
+    <nav class="menu-navegacao">
+      <button
+        [class]="visualizacaoAtual === 'lista' ? 'btn btn-primary active' : 'btn btn-secondary'"
+        (click)="mudarVisualizacao('lista')"
+      >
+        📋 Lista de Alimentos
+      </button>
+      <button
+        [class]="visualizacaoAtual === 'tipos' ? 'btn btn-primary active' : 'btn btn-secondary'"
+        (click)="mudarVisualizacao('tipos')"
+      >
+        🏷️ Por Tipos
+      </button>
+      <button
+        [class]="visualizacaoAtual === 'secoes' ? 'btn btn-primary active' : 'btn btn-secondary'"
+        (click)="mudarVisualizacao('secoes')"
+      >
+        🗺️ Por Seções
+      </button>
+      <button
+        [class]="visualizacaoAtual === 'estatisticas' ? 'btn btn-primary active' : 'btn btn-secondary'"
+        (click)="mudarVisualizacao('estatisticas')"
+      >
+        📊 Estatísticas
+      </button>
+    </nav>
+
+    <!-- Filtros e Pesquisa -->
+    <div class="filtros-container">
+      <div class="filtros">
+        <div class="campo-filtro">
+          <label for="pesquisa">🔍 Pesquisar:</label>
+          <input
+            id="pesquisa"
+            type="text"
+            [(ngModel)]="termoPesquisa"
+            (input)="pesquisar()"
+            placeholder="Digite o nome do alimento..."
+            class="input-pesquisa"
+          />
+        </div>
+
+        <div class="campo-filtro">
+          <label for="tipo">🏷️ Filtrar por Tipo:</label>
+          <select
+            id="tipo"
+            [(ngModel)]="tipoSelecionado"
+            (change)="filtrarPorTipo()"
+            class="select-filtro"
+          >
+            <option value="">Todos os tipos</option>
+            <option *ngFor="let tipo of tiposUnicos" [value]="tipo">
+              {{ tipo }}
+            </option>
+          </select>
+        </div>
+
+        <div class="campo-filtro">
+          <label for="secao">🗺️ Filtrar por Seção:</label>
+          <select
+            id="secao"
+            [(ngModel)]="secaoSelecionada"
+            (change)="filtrarPorSecao()"
+            class="select-filtro"
+          >
+            <option value="">Todas as seções</option>
+            <option *ngFor="let secao of getSecoesUnicas()" [value]="secao">
+              Seção {{ secao }}
+            </option>
+          </select>
+        </div>
+
+        <button (click)="limparFiltros()" class="btn btn-limpar">
+          🗑️ Limpar Filtros
+        </button>
+      </div>
+    </div>
+
+    <!-- Visualização: Lista de Alimentos -->
+    <div *ngIf="visualizacaoAtual === 'lista'" class="visualizacao">
+      <div class="info-resultados">
+        <p>
+          <strong>{{ alimentosFiltrados.length }}</strong> alimentos encontrados
+        </p>
+      </div>
+
+      <div class="grid-alimentos">
+        <div
+          *ngFor="let alimento of alimentosFiltrados; trackBy: trackByNome"
+          class="card-alimento"
+        >
+          <div class="card-header">
+            <h3 class="nome-alimento">{{ alimento.nome_alimento }}</h3>
+            <span class="badge-tipo" [attr.data-tipo]="alimento.tipo_alimento"
+              >{{ alimento.tipo_alimento }}</span
+            >
+          </div>
+          <div class="card-body">
+            <p>
+              <strong>Nome Científico:</strong>
+              <em>{{ alimento.nome_cientifico }}</em>
+            </p>
+            <p>
+              <strong>Seção da Horta:</strong> {{ alimento.secao_circular }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="alimentosFiltrados.length === 0" class="mensagem-vazia">
+        <h3>🔍 Nenhum alimento encontrado</h3>
+        <p>Tente ajustar os filtros de pesquisa.</p>
+      </div>
+    </div>
+
+    <!-- Visualização: Por Tipos -->
+    <div *ngIf="visualizacaoAtual === 'tipos'" class="visualizacao">
+      <h2>🏷️ Alimentos Organizados por Tipo</h2>
+
+      <div *ngFor="let tipo of tiposUnicos" class="secao-tipo">
+        <h3 class="titulo-tipo">{{ tipo }}</h3>
+        <div class="lista-tipo">
+          <div *ngFor="let alimento of alimentos" class="item-tipo">
+            <span *ngIf="alimento.tipo_alimento === tipo" class="nome"
+              >{{ alimento.nome_alimento }}</span
+            >
+            <span *ngIf="alimento.tipo_alimento === tipo" class="cientifico"
+              >{{ alimento.nome_cientifico }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visualização: Por Seções -->
+    <div *ngIf="visualizacaoAtual === 'secoes'" class="visualizacao">
+      <h2>🗺️ Distribuição por Seções da Horta</h2>
+
+      <div class="mapa-secoes">
+        <div *ngFor="let secao of getSecoesUnicas()" class="secao-card">
+          <h3 class="titulo-secao">Seção {{ secao }}</h3>
+          <div class="alimentos-secao">
+            <div *ngFor="let alimento of alimentos" class="item-secao">
+              <div
+                *ngIf="alimento.secao_circular === secao"
+                class="alimento-secao"
+              >
+                <strong>{{ alimento.nome_alimento }}</strong>
+                <span class="tipo-secao">({{ alimento.tipo_alimento }})</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visualização: Estatísticas -->
+    <div *ngIf="visualizacaoAtual === 'estatisticas'" class="visualizacao">
+      <h2>📊 Estatísticas da Horta</h2>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Total de Alimentos</h3>
+          <div class="stat-numero">{{ alimentos.length }}</div>
+        </div>
+
+        <div class="stat-card">
+          <h3>Tipos Diferentes</h3>
+          <div class="stat-numero">{{ tiposUnicos.length }}</div>
+        </div>
+
+        <div class="stat-card">
+          <h3>Seções Ocupadas</h3>
+          <div class="stat-numero">{{ getSecoesUnicas().length }}</div>
+        </div>
+      </div>
+
+      <div class="contagem-tipos">
+        <h3>📈 Quantidade por Tipo</h3>
+        <div class="barras-container">
+          <div *ngFor="let item of contagemPorTipo" class="barra-item">
+            <div class="barra-info">
+              <span class="barra-tipo">{{ item.tipo_alimento }}</span>
+              <span class="barra-numero">{{ item.quantidade }}</span>
+            </div>
+            <div class="barra-visual">
+              <div
+                class="barra-preenchida"
+                [style.width.%]="(item.quantidade / alimentos.length) * 100"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
