@@ -1,22 +1,29 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR"> <!-- Define idioma como português brasileiro -->
   <head>
+    <!-- Título que aparece na aba do navegador -->
     <title>Sistema de Gerenciamento da Horta - IF</title>
+    <!-- Codificação de caracteres UTF-8 para suportar acentos -->
     <meta charset="UTF-8" />
+    <!-- Configuração para responsividade em dispositivos móveis -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
+    <!-- Tag personalizada onde o Angular renderiza a aplicação -->
     <app-root>
+      <!-- Conteúdo mostrado enquanto Angular não carregou (loading fallback) -->
       <div
         style="
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
-          font-family: Arial, sans-serif;
+          display: flex;              /* Flexbox para centralização */
+          justify-content: center;    /* Centraliza horizontalmente */
+          align-items: center;        /* Centraliza verticalmente */
+          height: 100vh;              /* Ocupa toda altura da viewport */
+          font-family: Arial, sans-serif; /* Fonte padrão */
         "
       >
+        <!-- Container centralizado -->
         <div style="text-align: center">
+          <!-- Mensagem de carregamento -->
           <div style="font-size: 1.5rem; color: #666">
             Carregando Sistema da Horta...
           </div>

@@ -1,55 +1,38 @@
 /* Reset global e configurações base */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  margin: 0;                    /* Remove margem padrão de todos os elementos */
+  padding: 0;                   /* Remove padding padrão de todos os elementos */
+  box-sizing: border-box;       /* Inclui padding e border no cálculo do tamanho */
 }
 
+/* Configuração para html e body ocuparem toda a altura */
 html, body {
-  height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
+  height: 100%;                              /* Altura total da janela */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte moderna */
+  line-height: 1.6;                          /* Espaçamento entre linhas */
 }
 
+/* Estilização do body com gradiente de fundo */
 body {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
-  margin: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Gradiente azul-roxo */
+  min-height: 100vh;            /* Altura mínima da viewport */
+  margin: 0;                    /* Remove margem */
 }
 
-/* Scrollbar personalizada */
+/* Personalização da scrollbar (apenas Webkit - Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 8px;                   /* Largura da scrollbar */
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #f1f1f1;          /* Cor do trilho da scrollbar */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4CAF50;
-  border-radius: 4px;
+  background: #4CAF50;          /* Cor do "polegar" da scrollbar (verde) */
+  border-radius: 4px;           /* Bordas arredondadas */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #45a049;
-}
-
-/* Animações globais */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideIn {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(0); }
-}
-
-.fade-in {
-  animation: fadeIn 0.6s ease-out;
-}
-
-.slide-in {
-  animation: slideIn 0.5s ease-out;
+  background: #45a049;          /* Cor mais escura ao passar mouse */
 }

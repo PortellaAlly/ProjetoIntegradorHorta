@@ -1,62 +1,54 @@
 <div class="container">
-  <!-- Cabeçalho -->
+  <!-- CabeÃ§alho principal da aplicação -->
   <header class="header">
-    <h1 class="titulo-principal">🌱 Sistema de Gerenciamento da Horta do IF</h1>
-    <p class="subtitulo">
-      Gerencie e visualize os alimentos cultivados na horta
-    </p>
+    <!-- Título principal com emoji de planta -->
+    <h1 class="titulo-principal">Horta do IF</h1>
+    <!-- Subtítulo explicativo -->
   </header>
 
-  <!-- Loading -->
-  <div *ngIf="carregando" class="loading">
-    <div class="spinner"></div>
-    <p>Carregando dados da horta...</p>
-  </div>
-
-  <!-- Erro -->
-  <div *ngIf="erro" class="erro">
-    <h3>⚠️ Erro ao carregar dados</h3>
-    <p>{{ erro }}</p>
-    <button (click)="recarregar()" class="btn btn-primary">
-      Tentar Novamente
-    </button>
-  </div>
-
-  <!-- Conteúdo principal -->
+  <!-- Conteúdo principal - aparece apenas quando não está carregando E não há erro -->
   <div *ngIf="!carregando && !erro" class="conteudo">
-    <!-- Menu de navegação -->
+    <!-- Menu de navegação entre diferentes visualizações -->
     <nav class="menu-navegacao">
+      <!-- Botão para visualização em lista -->
+      <!-- [class] aplica classe CSS condicionalmente baseado na visualização atual -->
       <button
         [class]="visualizacaoAtual === 'lista' ? 'btn btn-primary active' : 'btn btn-secondary'"
         (click)="mudarVisualizacao('lista')"
       >
-        📋 Lista de Alimentos
+        Lista de Alimentos
       </button>
+      <!-- Botão para visualização por tipos -->
       <button
         [class]="visualizacaoAtual === 'tipos' ? 'btn btn-primary active' : 'btn btn-secondary'"
         (click)="mudarVisualizacao('tipos')"
       >
-        🏷️ Por Tipos
+        Por Tipos
       </button>
+      <!-- Botão para visualização por seções -->
       <button
         [class]="visualizacaoAtual === 'secoes' ? 'btn btn-primary active' : 'btn btn-secondary'"
         (click)="mudarVisualizacao('secoes')"
       >
-        🗺️ Por Seções
+        Por Seções
       </button>
+      <!-- Botão para visualização de estatísticas -->
       <button
         [class]="visualizacaoAtual === 'estatisticas' ? 'btn btn-primary active' : 'btn btn-secondary'"
         (click)="mudarVisualizacao('estatisticas')"
       >
-        📊 Estatísticas
+        Estatísticas
       </button>
     </nav>
 
-    <!-- Filtros e Pesquisa -->
+    <!-- Container dos filtros e sistema de pesquisa -->
     <div class="filtros-container">
       <div class="filtros">
+        <!-- Campo de pesquisa por nome -->
         <div class="campo-filtro">
-          <label for="pesquisa">🔍 Pesquisar:</label>
+          <label for="pesquisa">Pesquisar:</label>
+          <!-- [(ngModel)] cria two-way data binding com a propriedade termoPesquisa -->
+          <!-- (input) executa a função pesquisar() a cada caractere digitado -->
           <input
             id="pesquisa"
             type="text"
@@ -67,66 +59,85 @@
           />
         </div>
 
+        <!-- Filtro por tipo de alimento -->
         <div class="campo-filtro">
-          <label for="tipo">🏷️ Filtrar por Tipo:</label>
+          <label for="tipo">Filtrar por Tipo:</label>
+          <!-- Select que filtra por tipo, vinculado à propriedade tipoSelecionado -->
           <select
             id="tipo"
             [(ngModel)]="tipoSelecionado"
             (change)="filtrarPorTipo()"
             class="select-filtro"
           >
+            <!-- Opção padrão para mostrar todos os tipos -->
             <option value="">Todos os tipos</option>
+            <!-- *ngFor itera sobre array tiposUnicos criando uma opção para cada tipo -->
             <option *ngFor="let tipo of tiposUnicos" [value]="tipo">
               {{ tipo }}
             </option>
           </select>
         </div>
 
+        <!-- Filtro por seção da horta -->
         <div class="campo-filtro">
-          <label for="secao">🗺️ Filtrar por Seção:</label>
+          <label for="secao">Filtrar por Seção:</label>
           <select
             id="secao"
             [(ngModel)]="secaoSelecionada"
             (change)="filtrarPorSecao()"
             class="select-filtro"
           >
+            <!-- Opção padrão para mostrar todas as seções -->
             <option value="">Todas as seções</option>
+            <!-- *ngFor itera sobre seções únicas obtidas via método getSecoesUnicas() -->
             <option *ngFor="let secao of getSecoesUnicas()" [value]="secao">
               Seção {{ secao }}
             </option>
           </select>
         </div>
 
+        <!-- Botão para limpar todos os filtros aplicados -->
         <button (click)="limparFiltros()" class="btn btn-limpar">
-          🗑️ Limpar Filtros
+          Limpar Filtros
         </button>
       </div>
     </div>
 
-    <!-- Visualização: Lista de Alimentos -->
+    <!-- Visualização: Lista de Alimentos - aparece quando visualizacaoAtual === 'lista' -->
     <div *ngIf="visualizacaoAtual === 'lista'" class="visualizacao">
+      <!-- Informação sobre quantos alimentos foram encontrados -->
       <div class="info-resultados">
         <p>
+          <!-- Mostra o número de alimentos no array filtrado -->
           <strong>{{ alimentosFiltrados.length }}</strong> alimentos encontrados
         </p>
       </div>
 
+      <!-- Grid com os cartões dos alimentos -->
       <div class="grid-alimentos">
+        <!-- *ngFor itera sobre alimentosFiltrados criando um cartão para cada alimento -->
+        <!-- trackBy: trackByNome otimiza a renderização usando nome como identificador único -->
         <div
           *ngFor="let alimento of alimentosFiltrados; trackBy: trackByNome"
           class="card-alimento"
         >
+          <!-- Cabeçalho do cartão -->
           <div class="card-header">
+            <!-- Nome do alimento -->
             <h3 class="nome-alimento">{{ alimento.nome_alimento }}</h3>
+            <!-- Badge com o tipo, usando atributo data-tipo para styling CSS -->
             <span class="badge-tipo" [attr.data-tipo]="alimento.tipo_alimento"
               >{{ alimento.tipo_alimento }}</span
             >
           </div>
+          <!-- Corpo do cartão com informações detalhadas -->
           <div class="card-body">
+            <!-- Nome científico em itálico -->
             <p>
               <strong>Nome Científico:</strong>
               <em>{{ alimento.nome_cientifico }}</em>
             </p>
+            <!-- Seção onde o alimento está plantado -->
             <p>
               <strong>Seção da Horta:</strong> {{ alimento.secao_circular }}
             </p>
@@ -134,29 +145,36 @@
         </div>
       </div>
 
+      <!-- Mensagem quando nenhum alimento é encontrado com os filtros aplicados -->
       <div *ngIf="alimentosFiltrados.length === 0" class="mensagem-vazia">
-        <h3>🔍 Nenhum alimento encontrado</h3>
+        <h3>Nenhum alimento encontrado</h3>
         <p>Tente ajustar os filtros de pesquisa.</p>
       </div>
     </div>
 
-    <!-- Visualização: Por Tipos (CORRIGIDO) -->
+    <!-- Visualização: Por Tipos - aparece quando visualizacaoAtual === 'tipos' -->
     <div *ngIf="visualizacaoAtual === 'tipos'" class="visualizacao">
-      <h2>🏷️ Alimentos Organizados por Tipo</h2>
+      <h2>Alimentos Organizados por Tipo</h2>
 
+      <!-- *ngFor itera sobre cada tipo único -->
       <div *ngFor="let tipo of tiposUnicos" class="secao-tipo">
+        <!-- Título da seção do tipo -->
         <h3 class="titulo-tipo">{{ tipo }}</h3>
+        <!-- Lista dos alimentos deste tipo específico -->
         <div class="lista-tipo">
+          <!-- *ngFor itera sobre alimentos filtrados por tipo usando método getAlimentosPorTipo() -->
           <div 
             *ngFor="let alimento of getAlimentosPorTipo(tipo)" 
             class="item-tipo"
           >
+            <!-- Nome comum do alimento -->
             <span class="nome">{{ alimento.nome_alimento }}</span>
+            <!-- Nome científico do alimento -->
             <span class="cientifico">{{ alimento.nome_cientifico }}</span>
           </div>
         </div>
         
-        <!-- Mensagem quando não há alimentos desse tipo -->
+        <!-- Mensagem quando não há alimentos desse tipo (com filtros aplicados) -->
         <div *ngIf="getAlimentosPorTipo(tipo).length === 0" class="lista-tipo">
           <div class="item-tipo">
             <span class="nome">Nenhum alimento encontrado</span>
@@ -166,19 +184,26 @@
       </div>
     </div>
 
-    <!-- Visualização: Por Seções -->
+    <!-- Visualização: Por Seções - aparece quando visualizacaoAtual === 'secoes' -->
     <div *ngIf="visualizacaoAtual === 'secoes'" class="visualizacao">
-      <h2>🗺️ Distribuição por Seções da Horta</h2>
+      <h2>Distribuição por Seções da Horta</h2>
 
+      <!-- Mapa visual das seções -->
       <div class="mapa-secoes">
+        <!-- *ngFor itera sobre cada seção única da horta -->
         <div *ngFor="let secao of getSecoesUnicas()" class="secao-card">
+          <!-- Título da seção -->
           <h3 class="titulo-secao">Seção {{ secao }}</h3>
+          <!-- Container dos alimentos desta seção -->
           <div class="alimentos-secao">
+            <!-- *ngFor itera sobre alimentos desta seção específica -->
             <div 
               *ngFor="let alimento of getAlimentosPorSecao(secao)" 
               class="alimento-secao"
             >
+              <!-- Nome do alimento em negrito -->
               <strong>{{ alimento.nome_alimento }}</strong>
+              <!-- Tipo do alimento entre parênteses -->
               <span class="tipo-secao">({{ alimento.tipo_alimento }})</span>
             </div>
           </div>
@@ -186,36 +211,49 @@
       </div>
     </div>
 
-    <!-- Visualização: Estatísticas -->
+    <!-- Visualização: Estatísticas - aparece quando visualizacaoAtual === 'estatisticas' -->
     <div *ngIf="visualizacaoAtual === 'estatisticas'" class="visualizacao">
-      <h2>📊 Estatísticas da Horta</h2>
+      <h2>Estatísticas da Horta</h2>
 
+      <!-- Grid com cartões de estatísticas principais -->
       <div class="stats-grid">
+        <!-- Cartão: Total de alimentos -->
         <div class="stat-card">
           <h3>Total de Alimentos</h3>
+          <!-- Mostra o comprimento do array alimentos -->
           <div class="stat-numero">{{ alimentos.length }}</div>
         </div>
 
+        <!-- Cartão: Quantidade de tipos diferentes -->
         <div class="stat-card">
           <h3>Tipos Diferentes</h3>
+          <!-- Mostra o comprimento do array tiposUnicos -->
           <div class="stat-numero">{{ tiposUnicos.length }}</div>
         </div>
 
+        <!-- Cartão: Quantidade de seções ocupadas -->
         <div class="stat-card">
           <h3>Seções Ocupadas</h3>
+          <!-- Mostra quantas seções únicas existem -->
           <div class="stat-numero">{{ getSecoesUnicas().length }}</div>
         </div>
       </div>
 
+      <!-- Gráfico de barras com contagem por tipo -->
       <div class="contagem-tipos">
-        <h3>📈 Quantidade por Tipo</h3>
+        <h3>Quantidade por Tipo</h3>
         <div class="barras-container">
+          <!-- *ngFor itera sobre array contagemPorTipo -->
           <div *ngFor="let item of contagemPorTipo" class="barra-item">
+            <!-- Informações da barra (nome e quantidade) -->
             <div class="barra-info">
               <span class="barra-tipo">{{ item.tipo_alimento }}</span>
               <span class="barra-numero">{{ item.quantidade }}</span>
             </div>
+            <!-- Barra visual -->
             <div class="barra-visual">
+              <!-- Barra preenchida com largura proporcional -->
+              <!-- [style.width.%] calcula a porcentagem baseada no total de alimentos -->
               <div
                 class="barra-preenchida"
                 [style.width.%]="(item.quantidade / alimentos.length) * 100"
