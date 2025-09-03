@@ -106,13 +106,11 @@ export class Alimentos implements OnInit {
     return new Promise((resolve, reject) => {
       this.http.get<any>(`${this.baseUrl}tipos-alimentos.php`).subscribe({
         next: (dados) => {
-          console.log('Dados recebidos de tipos-alimentos.php:', dados);
           // Mapeia o array de objetos para array de strings (apenas os nomes dos tipos)
           this.tiposUnicos = dados.tipos.map((item: any) => item.tipo_alimento);
           resolve();
         },
         error: (error) => {
-          console.error('Erro ao carregar tipos:', error);
           reject(error);
         },
       });
@@ -129,7 +127,6 @@ export class Alimentos implements OnInit {
           resolve();
         },
         error: (error) => {
-          console.error('Erro ao carregar contagem:', error);
           reject(error);
         },
       });
@@ -141,12 +138,10 @@ export class Alimentos implements OnInit {
     return new Promise((resolve, reject) => {
       this.http.get<any>(`${this.baseUrl}alimentos-por-secao.php`).subscribe({
         next: (dados) => {
-          console.log('Dados recebidos de alimentos-por-secao.php:', dados);
           this.alimentosPorSecao = dados.alimentos || [];
           resolve();
         },
         error: (error) => {
-          console.error('Erro ao carregar alimentos por seção:', error);
           reject(error);
         },
       });
