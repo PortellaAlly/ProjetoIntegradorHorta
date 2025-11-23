@@ -28,7 +28,7 @@
     if (password_verify($login_senha, $senha_hash)) {
         $_SESSION['usuario'] = $linha['usuario'];
         $_SESSION['nivel'] = $linha['nivel'];  // NOVA LINHA: salva o nível
-        header("Location: index.php");
+        header("Location: ../../../Parte1-php/frontend/pages/");
         exit();
     } else {
         echo "Usuário ou senha inválidos.";

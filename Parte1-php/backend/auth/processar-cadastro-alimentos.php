@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['usuario']) || $_SESSION['nivel'] != 1) {
-    header("Location: login.html");
+    header("Location: Parte1-php\frontend\pages\login.html");
     exit;
 }
 

@@ -62,6 +62,7 @@ CREATE TABLE `login` (
   `nivel` int(11) DEFAULT 2
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
 --
 -- Dumping data for table `login`
 --
@@ -74,3 +75,14 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+CREATE TABLE `imagens` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_arquivo` varchar(255) NOT NULL,
+  `titulo` varchar(100) DEFAULT NULL,
+  `descricao` text DEFAULT NULL,
+  `usuario` varchar(50) NOT NULL,
+  `data_upload` timestamp NOT NULL DEFAULT current_timestamp(),
+  `secao_horta` char(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
