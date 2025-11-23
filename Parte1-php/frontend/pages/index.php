@@ -70,15 +70,17 @@ if (!isset($_SESSION['usuario'])) {
 </head>
 <body>
     <div class="container">
-        <h1>Trabalho Integrador - Parte 1</h1>
+        <h1>Trabalho Trimestral - Sistema da Horta</h1>
         <p class="welcome">
             Bem-vindo, <strong><?php echo $_SESSION['usuario']; ?></strong> 
             (Nível <?php echo $_SESSION['nivel']; ?>)
         </p>
         <ul class="menu">
-            <li><a href="cadastro-alimentos.php">Cadastro de Alimentos (Nível 1)</a></li>
-            <li><a href="sensores.php">Informações dos Sensores (Níveis 1 e 2)</a></li>
-            <li><a href="logout.php">Sair</a></li>
+            <li><a href="cadastro-alimentos.php">🌱 Cadastro de Alimentos (Nível 1)</a></li>
+            <li><a href="sensores.php">📊 Informações dos Sensores (Níveis 1 e 2)</a></li>
+            <li><a href="upload-imagens.php">📤 Upload de Imagens da Horta</a></li>
+            <li><a href="galeria.php">🖼️ Galeria de Imagens</a></li>
+            <li><a href="../../backend/logout.php">🚪 Sair</a></li>
         </ul>
     </div>
 </body>
