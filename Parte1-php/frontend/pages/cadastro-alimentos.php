@@ -159,7 +159,7 @@ if ($_SESSION['nivel'] != 1) {
         <h1>Cadastrar Alimento</h1>
         <p>Bem-vindo, <?php echo htmlspecialchars($_SESSION['usuario']); ?>! (Nível <?php echo $_SESSION['nivel']; ?>)</p>
         
-        <form method="POST" action="processar-cadastro-alimentos.php">
+        <form method="POST" action="../../backend/auth/processar-cadastro-alimentos.php">
             <fieldset>
                 <legend>Dados do Alimento</legend>
                 
@@ -193,7 +193,7 @@ if ($_SESSION['nivel'] != 1) {
         </form>
         
         <div class="links">
-            <a href="index.php">Voltar ao Início</a> | <a href="logout.php">Sair</a>
+            <a href="index.php">Voltar ao Início</a> | <a href="../../backend/logout.php">Sair</a>
         </div>
     </div>
 </body>

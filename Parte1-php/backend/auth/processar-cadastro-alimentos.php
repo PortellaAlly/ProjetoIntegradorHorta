@@ -30,7 +30,7 @@ mysqli_stmt_bind_param($stmt, "ssss", $nomecomum, $nomecientifico, $categoria, $
 if (mysqli_stmt_execute($stmt)) {
     echo "Alimento cadastrado com sucesso!<br>";
     echo "<a href='cadastro-alimentos.php'>Cadastrar outro</a> | ";
-    echo "<a href='index.php'>Voltar ao início</a>";
+    echo "<a href='Parte1-php\frontend\pages\'>Voltar ao início</a>";
 } else {
     echo "Erro ao cadastrar: " . mysqli_stmt_error($stmt);
 }
